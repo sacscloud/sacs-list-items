@@ -1,0 +1,38 @@
+<link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../paper-item/paper-item.html">
+<link rel="import" href="../paper-icon-button/paper-icon-button.html">
+<link rel="import" href="../iron-icons/iron-icons.html">
+
+
+<link rel="import" href="./sacs-list-items-styles.html">
+
+<dom-module id="sacs-list-items">
+    <template>
+        <style include="sacs-list-items-styles"></style>
+        
+       <section class="section">
+
+        <div class="list_container">
+                <div class="header_list">
+                    <paper-item>
+                            <span>[[listTitle]]</span>
+                            <paper-icon-button id="icon_click" icon="icons:expand-less"></paper-icon-button> 
+                    </paper-item>       
+                </div>
+                
+                <div class="container_items">
+                    <template is="dom-repeat" items="[[listItems]]">
+                        <paper-item class="item_list">[[item.name]]</paper-item>
+                     </template>     
+                </div>
+           </div>
+        
+
+       </section>
+
+
+    </template>
+
+    <script src="./sacs-list-items.js"></script>
+</dom-module>  
+
