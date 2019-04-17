@@ -3,11 +3,11 @@
 Polymer({
     is:'sacs-list-items',
     properties:{
-        listItems:{
+        listitems:{
             type:Array,
             value:[]
         },
-        listTitle:{
+        listtitle:{
             type:String,
             value:"Title"
         }
