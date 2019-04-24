@@ -1,6 +1,6 @@
 {
   "name": "sacs-list-items",
-  "version":"1.0.1",
+  "version":"1.0.2",
   "description": "dropdown of list of items",
   "main": "sacs-list-items.html",
   "authors": [

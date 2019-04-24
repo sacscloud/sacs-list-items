@@ -10,7 +10,22 @@ Polymer({
         listtitle:{
             type:String,
             value:"Title"
+        },
+        datatofilter:{
+            type:Array,
+            value:[],
+            observer:"__observerDataToFilter",
+            reflectToAttribute:true
+        },
+        label:{
+            type:String,
+            value:"aaa"
+        },
+        dataToRender:{
+            type:Array,
+            value:[]
         }
+
     },
 
     listeners:{
@@ -33,5 +48,35 @@ Polymer({
             icon.style.transform = "rotate(180deg)";
         }
         
+    },
+
+    __observerDataToFilter: function (){
+          
+          const filter = this.listitems.filter( obj => {
+             for( let element of this.datatofilter){
+                 for( let key in obj){
+
+                     if(key === element.type && element.id === obj[key]){
+                         return obj;
+                     }
+                 }
+             }
+          });
+
+          this.__createDataToRender(filter);
+
+          //console.log("FILTER",filter);
+
+    },
+
+    __createDataToRender: function(data){
+
+        data.map( obj => {
+            for( let key in obj){
+               if(key === this.label) {
+                   this.push('dataToRender', obj[key])
+               }
+            }
+        });
     }
 });
