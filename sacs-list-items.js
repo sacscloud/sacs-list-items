@@ -13,13 +13,11 @@ Polymer({
         },
         datatofilter:{
             type:Array,
-            value:[],
-            observer:"__observerDataToFilter",
-            reflectToAttribute:true
+            value:[]
         },
         label:{
             type:String,
-            value:"aaa"
+            value:""
         },
         dataToRender:{
             type:Array,
@@ -31,9 +29,28 @@ Polymer({
     listeners:{
         'icon_click.click':'__listenerIcon'
     },
+    observers:[
+        'handleDataToFilter(datatofilter.*)',
+        'handleListItems(listitems.*)'
+    ],
+
+    handleDataToFilter: function(data){
+       
+        if(data.base.length > 0 && this.listitems.length > 0){
+            this.__observerDataToFilter();
+        }
+    
+        
+    },
+    handleListItems:function(data){
+ 
+        if(data.base.length > 0 && this.datatofilter.length > 0){
+            this.__observerDataToFilter();
+        }
+        
+    },
 
     __listenerIcon: function(e){
-        console.log("Dando click", e.target);
 
         const icon = e.target;
         
@@ -51,7 +68,7 @@ Polymer({
     },
 
     __observerDataToFilter: function (){
-          
+
           const filter = this.listitems.filter( obj => {
              for( let element of this.datatofilter){
                  for( let key in obj){
@@ -65,18 +82,21 @@ Polymer({
 
           this.__createDataToRender(filter);
 
-          //console.log("FILTER",filter);
-
     },
 
     __createDataToRender: function(data){
 
-        data.map( obj => {
-            for( let key in obj){
-               if(key === this.label) {
-                   this.push('dataToRender', obj[key])
-               }
-            }
-        });
+        this.debounce('action', ()=>{
+            this.set('dataToRender',[]);
+            data.map( obj => {
+                for( let key in obj){
+                   if(key === this.get("label")) {
+                       this.push('dataToRender', obj[key])
+                   }
+                }
+            });
+
+        }, 1000)
+  
     }
 });
