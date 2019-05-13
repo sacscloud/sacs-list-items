@@ -22,6 +22,10 @@ Polymer({
         dataToRender:{
             type:Array,
             value:[]
+        },
+        value:{
+            type:Object,
+            value:[{}]
         }
 
     },
@@ -85,6 +89,27 @@ Polymer({
     },
 
     __createDataToRender: function(data){
+
+        this.set('value', []);
+   
+       data.map(element => {
+
+           const {categoria, costo, marca, marcaNombre, nombre, precio, proveedor, proveedorNombre, sku, $key} = element;
+
+           this.push('value', {
+            $key,
+            categoria, 
+            costo, 
+            marca, 
+            marcaNombre, 
+            nombre, 
+            precio, 
+            proveedor, 
+            proveedorNombre, 
+            sku
+           })
+       });
+               
 
         this.debounce('action', ()=>{
             this.set('dataToRender',[]);
