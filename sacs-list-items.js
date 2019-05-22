@@ -45,6 +45,8 @@ Polymer({
 
     handleDataToFilter: function (data, other) {
 
+ 
+
         if (data.base.length > 0 && this.listitems.length > 0 && !this.observerExecute) {
 
             this.__observerDataToFilter();
@@ -83,10 +85,6 @@ Polymer({
 
         this.set('observerExecute', true)
 
-        if (this.get('value').length > 0) {
-            //console.log("YA TIENE VALORES");
-
-        }
 
         const filter = this.listitems.filter(obj => {
             for (let element of this.datatofilter) {
@@ -124,7 +122,7 @@ Polymer({
                             //filtrado de productos sin variantes
                             const productsNoVariants = data.filter(obj => {
                                 for (let variant of productsVariants) {
-                                    //console.log("VATIANTES", variant)
+
                                     if (variant.id_producto !== obj.$key) {
                                         return obj;
                                     }
@@ -149,7 +147,8 @@ Polymer({
                                     proveedor,
                                     proveedorNombre,
                                     sku,
-                                    status: "pendiente"
+                                    status: "pendiente",
+                                    tipo:"producto simple"
                                 });
                             });
 
@@ -165,6 +164,7 @@ Polymer({
 
                                         this.push('dataToRender', `${obj.nombre} / ${objVariant[key]}`);
 
+                              
                                         this.push('value', {
                                             $key,
                                             categoria,
@@ -177,7 +177,8 @@ Polymer({
                                             proveedorNombre,
                                             sku,
                                             status: "pendiente",
-                                            variante: objVariant.$key
+                                            variante: objVariant.$key,
+                                            tipo:"producto variantes" 
                                         });
 
                                     }
@@ -199,7 +200,7 @@ Polymer({
 
     __getVariants: function (keyProduct) {
         const db = firebase.database().ref('/accounts/sacsretailpruebas/variantes');
-       
+        let variantsTxt = '';
         return db.once("value").then(snap => this.__snapshotToArray(snap));
     },
 
