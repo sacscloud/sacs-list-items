@@ -44,8 +44,7 @@ Polymer({
     ],
 
     handleDataToFilter: function (data, other) {
-
- 
+    
 
         if (data.base.length > 0 && this.listitems.length > 0 && !this.observerExecute) {
 
@@ -54,7 +53,6 @@ Polymer({
 
 
     },
-
     handleListItems: function (data) {
 
         if (data.base.length > 0 && this.datatofilter.length > 0 && !this.observerExecute) {
@@ -84,8 +82,7 @@ Polymer({
     __observerDataToFilter: function () {
 
         this.set('observerExecute', true)
-
-
+        
         const filter = this.listitems.filter(obj => {
             for (let element of this.datatofilter) {
                 for (let key in obj) {
@@ -164,7 +161,8 @@ Polymer({
 
                                         this.push('dataToRender', `${obj.nombre} / ${objVariant[key]}`);
 
-                              
+                                
+
                                         this.push('value', {
                                             $key,
                                             categoria,
